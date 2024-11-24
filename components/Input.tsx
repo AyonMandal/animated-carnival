@@ -5,14 +5,13 @@ import {
   ViewStyle,
   TextInputProps,
 } from "react-native";
-import React, { ReactNode, Ref } from "react";
+import React, { ReactNode } from "react";
 import { Theme } from "@/constants/theme";
 import { heightPercentage } from "@/helpers/common";
 
 interface InputProps extends TextInputProps {
   icon?: ReactNode;
   customStyle?: ViewStyle;
-  ref?: Ref<TextInput>;
 }
 
 const Input = (props: InputProps) => {
@@ -20,7 +19,6 @@ const Input = (props: InputProps) => {
     <View style={[styles.container, props.customStyle]}>
       {props.icon && props.icon}
       <TextInput
-        ref={props.ref}
         style={styles.input}
         placeholderTextColor={Theme.colors.textLight}
         {...props}
@@ -41,6 +39,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 10,
+    gap: 5,
   },
   input: {
     flex: 1,

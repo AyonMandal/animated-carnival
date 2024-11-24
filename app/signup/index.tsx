@@ -1,7 +1,7 @@
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import ScreenWrapper from "@/components/ScreenWrapper";
 import { useRouter } from "expo-router";
+import ScreenWrapper from "@/components/ScreenWrapper";
 import ArrowBack from "@/components/ArrowBack";
 import { heightPercentage, widthPercentage } from "@/helpers/common";
 import { Theme } from "@/constants/theme";
@@ -9,14 +9,19 @@ import Input from "@/components/Input";
 import Icon from "@/assets/icons";
 import CustomButton from "@/components/CustomButton";
 
-const LoginPage = () => {
+const SignUpPage = () => {
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
+  const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const submitLoginRequest = async () => {
-    if (email.trim().length === 0 || password.trim().length === 0) {
-      Alert.alert("Oops!", "Please enter email and password");
+  const submitSignUpRequest = async () => {
+    if (
+      name.trim().length === 0 ||
+      email.trim().length === 0 ||
+      password.trim().length === 0
+    ) {
+      Alert.alert("Oops!", "Please enter name, email and password");
       return;
     }
   };
@@ -25,8 +30,8 @@ const LoginPage = () => {
       <View style={styles.container}>
         <ArrowBack router={router} size={26} />
         <View>
-          <Text style={styles.headerText}>Hey,</Text>
-          <Text style={styles.headerText}>Welcome Back!</Text>
+          <Text style={styles.headerText}>Let's</Text>
+          <Text style={styles.headerText}>Get Started!</Text>
         </View>
         <View style={styles.form}>
           <Text
@@ -35,8 +40,22 @@ const LoginPage = () => {
               color: Theme.colors.text,
             }}
           >
-            Please login to continue
+            Please create a new account to continue with us.
           </Text>
+          <Input
+            placeholder="Enter your name"
+            icon={
+              <Icon
+                name="user"
+                size={20}
+                color={Theme.colors.textLight}
+                strokeWidth={1.6}
+              />
+            }
+            onChangeText={(value) => {
+              setName(value);
+            }}
+          />
           <Input
             placeholder="Enter your email"
             icon={
@@ -66,24 +85,24 @@ const LoginPage = () => {
             }}
             secureTextEntry
           />
-          <Text style={styles.forgotPassword}>Forgot Password?</Text>
           <CustomButton
-            buttonText="Login"
-            onPress={submitLoginRequest}
+            buttonText="Sign Up"
+            onPress={submitSignUpRequest}
             loading={loading}
           />
         </View>
         <View style={styles.footer}>
-          <Text>Don't have an account? </Text>
-          <Pressable onPress={() => router.push("/signup")}>
-            <Text style={styles.footerHighlight}>Sign Up</Text>
+          <Text>Already have an account? </Text>
+          <Pressable onPress={() => router.push("/login")}>
+            <Text style={styles.footerHighlight}>Login</Text>
           </Pressable>
         </View>
       </View>
     </ScreenWrapper>
   );
 };
-export default LoginPage;
+
+export default SignUpPage;
 
 const styles = StyleSheet.create({
   container: {
