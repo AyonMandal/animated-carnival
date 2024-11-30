@@ -8,6 +8,7 @@ import { Theme } from "@/constants/theme";
 import Input from "@/components/Input";
 import Icon from "@/assets/icons";
 import CustomButton from "@/components/CustomButton";
+import { supabase } from "@/lib/supabase";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -22,6 +23,22 @@ const SignUpPage = () => {
       password.trim().length === 0
     ) {
       Alert.alert("Oops!", "Please enter name, email and password");
+      return;
+    }
+    setLoading(true);
+    const { data, error } = await supabase.auth.signUp({
+      email: email.trim(),
+      password: password.trim(),
+      options: {
+        data: {
+          name: name.trim(),
+        },
+      },
+    });
+    setLoading(false);
+
+    if (error) {
+      Alert.alert("Sign Up Error!", error.message);
       return;
     }
   };

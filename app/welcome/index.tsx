@@ -23,7 +23,12 @@ const Welcome = () => {
           </Text>
         </View>
         <View style={styles.footer}>
-          <CustomButton buttonText="Get Started" />
+          <CustomButton
+            buttonText="Get Started"
+            onPress={() => {
+              router.push("/signup");
+            }}
+          />
           <View style={styles.loginContainer}>
             <Text>Already have an account? </Text>
             <Pressable
