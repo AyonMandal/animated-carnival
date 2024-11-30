@@ -2,6 +2,7 @@ import CustomButton from "@/components/CustomButton";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import { Theme } from "@/constants/theme";
 import { heightPercentage, widthPercentage } from "@/helpers/common";
+import { router } from "expo-router";
 import { Image, Pressable, StatusBar, Text, View } from "react-native";
 import { StyleSheet } from "react-native";
 
@@ -22,10 +23,19 @@ const Welcome = () => {
           </Text>
         </View>
         <View style={styles.footer}>
-          <CustomButton buttonText="Get Started" />
+          <CustomButton
+            buttonText="Get Started"
+            onPress={() => {
+              router.push("/signup");
+            }}
+          />
           <View style={styles.loginContainer}>
             <Text>Already have an account? </Text>
-            <Pressable>
+            <Pressable
+              onPress={() => {
+                router.push("/login");
+              }}
+            >
               <Text style={styles.loginText}>Login</Text>
             </Pressable>
           </View>
