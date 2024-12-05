@@ -1,9 +1,17 @@
 import { User } from "@supabase/supabase-js";
 import React, { ReactNode, useState, useContext, createContext } from "react";
 
+interface CustomUser extends User {
+  name?: string;
+  image?: string;
+  bio?: string;
+  address?: string;
+  phoneNumber?: string;
+}
+
 // Define the context value type
 interface AuthenticationContextType {
-  user: User | null;
+  user: CustomUser | null;
   setAuthUser: (user: User) => void;
   setUserDetails: (details: Partial<User>) => void;
   clearUserDetails: () => void;
@@ -31,7 +39,7 @@ export const AuthenticationProvider = ({
   };
 
   // Function to update user details
-  const setUserDetails = (details: Partial<User>) => {
+  const setUserDetails = (details: Partial<CustomUser>) => {
     setUser((prevUser) => (prevUser ? { ...prevUser, ...details } : null));
   };
 
